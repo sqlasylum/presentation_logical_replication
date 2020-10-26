@@ -1,1 +1,1 @@
-# presentation_logical_replication
+# Logical Replication Presentation Code and supporting items. 
