@@ -1,7 +1,30 @@
 # Logical Replication Presentation Code and Supporting Items 
 
 ## Getting started 
-In the directory of your docker-compose.yaml file run 
+
+# Database.env and Database_standby.env files. 
+
+The yaml files depend on these 2 files. Database.env and Database_Standby.env An example of each is included below. 
+
+--Database.env 
+
+```
+# database.env
+POSTGRES_USER=master
+POSTGRES_PASSWORD=<password>
+POSTGRES_DB=master
+```
+
+--Database_standby.env 
+```
+# database.env
+POSTGRES_USER=standby
+POSTGRES_PASSWORD=<password>
+POSTGRES_DB=standby
+```
+
+
+Once these files are in place In the directory of your docker-compose.yaml file run 
 
 ``` docker compose up ```
 
@@ -130,3 +153,20 @@ FROM pg_control_checkpoint(), pg_replication_slots;
 
 
 
+
+
+--reset 
+drop publication bench;
+--create table 
+CREATE TABLE if not exists  public.pgbench_history (
+ tid    integer,                     
+ bid    integer,                     
+ aid    integer,                     
+ delta  integer,                     
+ mtime  timestamp without time zone, 
+ filler character(22),
+ id serial primary key
+);
+--reset standby
+--drop subscription bench_history 
+--drop table pgbench_history
