@@ -23,8 +23,8 @@ POSTGRES_PASSWORD=<password>
 POSTGRES_DB=standby
 ```
 
-
-Once these files are in place In the directory of your docker-compose.yaml file run 
+## Starting up Containers
+After you have placed these files In the directory of your docker-compose.yaml, then run. 
 
 ``` docker compose up ```
 
