@@ -88,8 +88,6 @@ Run counts on both Master and Standby
 wal_level = 'logical'
 
 --All dependant on the number of subscribers.  
-max_wal_senders
-max_replication_slots
 max_wal_senders                
 max_replication_slots
 max_worker_processes           
@@ -107,9 +105,9 @@ max_sync_workers_per_subscription #of tables per subscription
 --If disconnected from publisher/subscriber 
 
 ``` 
-ALTER SUBSCRIPTION pgbench_history disable;
-ALTER SUBSCRIPTION pgbench_history SET (slot_name = NONE);
-DROP SUBSCRIPTION pgbench_history; 
+ALTER SUBSCRIPTION bench_history disable;
+ALTER SUBSCRIPTION bench_history SET (slot_name = NONE);
+DROP SUBSCRIPTION bench_history; 
 ```
 
 # Monitoring 
@@ -132,10 +130,6 @@ Connect to Publisher and execute
 
 ``` Select * from pg_subscription ```
 
---See a list of Subscriptions 
-
-``` Select * from pg_subscription_tables ```
-
 --See a list of replication slots on master
 
 ``` Select * from pg_replication_slots ``` 
@@ -155,18 +149,3 @@ FROM pg_control_checkpoint(), pg_replication_slots;
 
 
 
---reset 
-drop publication bench;
---create table 
-CREATE TABLE if not exists  public.pgbench_history (
- tid    integer,                     
- bid    integer,                     
- aid    integer,                     
- delta  integer,                     
- mtime  timestamp without time zone, 
- filler character(22),
- id serial primary key
-);
---reset standby
---drop subscription bench_history 
---drop table pgbench_history
