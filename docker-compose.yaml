@@ -1,0 +1,28 @@
+# docker-compose.yml
+version: '3'
+services:
+    master:     
+      image: postgres:10
+      ports:
+          - "5432:5432"
+      container_name: postgres_master
+      env_file:
+        - database.env # configure postgres
+      volumes:
+        - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+      command: postgres -c wal_level=logical
+    standby:
+      image: postgres:10
+      ports:
+        - "5433:5432"
+      container_name: postgres_standby
+      env_file:
+        - database_standby.env # configure postgres
+      volumes:
+        - database-data:/var/lib/postgresql/data_standby/ # persist data even if container shuts down
+      command: postgres -c wal_level=logical
+volumes:
+  database-data: # named volumes can be managed easier using docker-compose
+
+
+
